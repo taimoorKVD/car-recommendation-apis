@@ -1,0 +1,19 @@
+{
+  "name": "car-recommendation-apis",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node src/server.js",
+    "db:seed": "node src/database/seeder/cars.js"
+  },
+  "dependencies": {
+    "@qdrant/js-client-rest": "^1.16.2",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.19.2",
+    "mysql2": "^3.9.0",
+    "node-cron": "^3.0.3",
+    "openai": "^4.29.0",
+    "sequelize": "^6.37.7"
+  }
+}
