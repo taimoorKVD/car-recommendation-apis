@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "nodemon src/server.js",
     "db:seed": "node src/database/seeder/cars.js"
   },
   "dependencies": {
@@ -15,5 +15,8 @@
     "node-cron": "^3.0.3",
     "openai": "^4.29.0",
     "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }

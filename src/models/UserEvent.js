@@ -18,6 +18,10 @@ const UserEvent = sequelize.define("UserEvent", {
         type: DataTypes.TEXT,
         allowNull: true,
     },
+    weight: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
+    },
 }, {
     tableName: "user_events",
     freezeTableName: true,

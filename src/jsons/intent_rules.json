@@ -1,0 +1,33 @@
+{
+  "vehicle_type_handling": {
+    "explicit_mention": {
+      "action": "soft_preference",
+      "confidence": 0.9
+    },
+    "explicit_negation": {
+      "action": "hard_exclude",
+      "confidence": 0.95
+    },
+    "weak_language": {
+      "action": "soft_preference",
+      "confidence": 0.5
+    }
+  },
+  "objectives": {
+    "cheap": {
+      "field": "price",
+      "direction": "asc"
+    },
+    "expensive": {
+      "field": "price",
+      "direction": "desc"
+    },
+    "reliable": {
+      "field": "reliabilityScore",
+      "direction": "desc"
+    }
+  },
+  "fallback_behavior": {
+    "unknown_intent": "semantic_only"
+  }
+}

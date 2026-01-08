@@ -2,12 +2,14 @@ import "dotenv/config";
 import express from "express";
 import sequelize from "./config/db.js";
 import carRoutes from "./routes/cars.routes.js";
+import eventRoutes from "./routes/events.routes.js";
 import {setupCollections} from "./services/qdrant.setup.js";
 
 const app = express();
 app.use(express.json());
 
 app.use("/cars", carRoutes);
+app.use("/events", eventRoutes);
 
 const PORT = process.env.PORT || 4000;
 

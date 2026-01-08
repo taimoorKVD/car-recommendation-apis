@@ -7,44 +7,36 @@ import { setupCollections } from "../../services/qdrant.setup.js";
 
 (async () => {
     try {
+        // 1️⃣ Connect to database
         await sequelize.authenticate();
-        await sequelize.sync({ force: true });
+        console.log("✅ Database connected");
 
-        await setupCollections(); // 👈 IMPORTANT
+        // ⚠️ Never force sync in indexing scripts
+        await sequelize.sync();
 
-        const cars = [
-            {
-                brand: "Toyota",
-                model: "Fortuner",
-                type: "SUV",
-                price: 35000,
-                description: "Powerful family SUV for long trips",
-            },
-            {
-                brand: "Tesla",
-                model: "Model 3",
-                type: "Sedan",
-                price: 42000,
-                description: "Electric car with autopilot and long range",
-            },
-            {
-                brand: "Hyundai",
-                model: "Creta",
-                type: "SUV",
-                price: 22000,
-                description: "Fuel efficient compact SUV",
-            },
-        ];
+        // 2️⃣ Ensure Qdrant collections exist
+        await setupCollections();
 
-        for (const car of cars) {
-            const savedCar = await Car.create(car);
-            await indexCar(savedCar);
+        // 3️⃣ Fetch cars dynamically from DB
+        const cars = await Car.findAll();
+
+        if (!cars.length) {
+            console.log("⚠️ No cars found in database. Nothing to index.");
+            process.exit(0);
         }
 
-        console.log("✅ Cars seeded and indexed");
+        console.log(`🚗 Indexing ${cars.length} cars...`);
+
+        // 4️⃣ Index cars (NO re-creation)
+        for (const car of cars) {
+            await indexCar(car);
+        }
+
+        console.log("✅ Cars indexed successfully");
         process.exit(0);
+
     } catch (err) {
-        console.error("❌ Seeder failed:", err);
+        console.error("❌ Cars indexing failed:", err);
         process.exit(1);
     }
 })();
